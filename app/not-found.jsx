@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "./dashboard/layout";
+import Layout from "../app/layout";
 export default function NotFound() {
   return (
     <Layout>

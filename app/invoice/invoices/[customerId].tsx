@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getDoc, doc } from "firebase/firestore";
 import { firestore } from "@/app/utils/firebase";
 import Layout from "../layout";
+import { Card } from "@nextui-org/react";
 
 const InvoiceDetails = () => {
   const router = useRouter();
@@ -30,16 +31,18 @@ const InvoiceDetails = () => {
   }, [customerId]);
 
   if (!invoiceDetails) {
-    return <div>Loading...</div>;
+    return <Card>Loading...</Card>;
   }
 
   return (
     <Layout>
-      <h1>Invoice Details</h1>
-      <p>Customer ID: {invoiceDetails.customer_id}</p>
-      <p>Amount: ${invoiceDetails.amount}</p>
-      <p>Date: {invoiceDetails.date}</p>
-      <p>Status: {invoiceDetails.status}</p>
+      <Card>
+        <h1>Invoice Details</h1>
+        <p>Customer ID: {invoiceDetails.customer_id}</p>
+        <p>Amount: ${invoiceDetails.amount}</p>
+        <p>Date: {invoiceDetails.date}</p>
+        <p>Status: {invoiceDetails.status}</p>
+      </Card>
     </Layout>
   );
 };

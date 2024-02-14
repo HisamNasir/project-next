@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { Lobster } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./ui/globals.css";
 import Link from "next/link";
 import { Providers } from "./providers";
 import { FaCompass } from "react-icons/fa6";
 import SideNav from "./ui/sidenav";
-const lobster = Lobster({ subsets: ["latin"], weight: ["400"] });
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "700", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Invoice App",
@@ -19,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={lobster.className}>
+      <body className={lato.className}>
         <Providers>
           <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
             <div className="w-full md:w-64">

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, Skeleton } from "@nextui-org/react";
 import { doc, getDoc } from "firebase/firestore";

@@ -6,26 +6,37 @@ import { FaFile, FaPeopleGroup } from "react-icons/fa6";
 
 const SideNav = () => {
   return (
-    <div className="h-full p-4  ">
-      <Card className="p-2 h-full">
-        <div className=" flex flex-col gap-4">
-          <Link href={"/"}>
-            <Button color="default" className=" text-center md:w-full">
-              <FaHome />
-              Home
-            </Button>
+    <div className="h-full p-4">
+      <Card className="p-2 h-full flex flex-col justify-between">
+        <div className=" flex md:flex-col gap-4">
+          <Link
+            className="flex items-center gap-4 p-2 px-4  border rounded-xl text-center"
+            href={"/"}
+          >
+            <FaHome />
+            Home
           </Link>
-          <Link href={"/invoice/"}>
-            <Button color="default" className=" text-center md:w-full">
-              <FaFile />
-              Invoice
-            </Button>
+          <Link
+            className="flex items-center gap-4 p-2 px-4  border rounded-xl text-center"
+            href={"/invoice/"}
+          >
+            <FaFile />
+            Invoice
           </Link>
-          <Link href={"/"}>
-            <Button color="default" className=" text-center md:w-full">
-              <FaPeopleGroup />
-              Custommer
-            </Button>
+          <Link
+            className="flex items-center gap-4 p-2 px-4  border rounded-xl text-center"
+            href={"/customer/"}
+          >
+            <FaPeopleGroup />
+            Customer
+          </Link>
+        </div>
+        <div className=" flex md:flex-col gap-4">
+          <Link
+            className="flex items-center gap-4 p-2 px-4  border rounded-xl text-center"
+            href={"/loginpage/"}
+          >
+            Name
           </Link>
         </div>
       </Card>

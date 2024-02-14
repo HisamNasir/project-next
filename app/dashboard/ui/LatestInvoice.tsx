@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { Card, Skeleton } from "@nextui-org/react";
 
@@ -75,8 +76,11 @@ const LatestInvoices = () => {
           <Card className=" min-h-[400px] space-y-5 p-4" radius="lg">
             <ul className="space-y-5 max-h-[380px] overflow-hidden overflow-y-scroll">
               {latestInvoices.map((invoice, index) => (
-                <li className=" flex justify-between" key={index}>
-                  <Link href={`/invoices/${invoice.customer_id}`}>
+                <li key={index}>
+                  <Link
+                    className=" flex justify-between"
+                    href={`/invoices/${invoice.customer_id}`}
+                  >
                     <span>{invoice.customer_name}</span>{" "}
                     <span>${invoice.amount}</span>
                   </Link>
