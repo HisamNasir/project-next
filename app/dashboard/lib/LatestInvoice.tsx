@@ -52,10 +52,10 @@ const LatestInvoices = () => {
   }, [loading]);
 
   return (
-    <div>
+    <div className=" space-y-4">
       <h1>Latest Invoices</h1>
       {loading ? (
-        <Card className="w-[200px] space-y-5 p-4" radius="lg">
+        <Card className=" h-[400px] space-y-5 p-4" radius="lg">
           <div className="space-y-3">
             <Skeleton className="w-3/5 rounded-lg">
               <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
@@ -70,8 +70,8 @@ const LatestInvoices = () => {
         </Card>
       ) : (
         <div>
-          <Card className="  p-4" radius="lg">
-            <ul>
+          <Card className=" min-h-[400px] space-y-5 p-4" radius="lg">
+            <ul className="space-y-5 max-h-[380px] overflow-hidden overflow-y-scroll">
               {latestInvoices.map((invoice, index) => (
                 <li className=" flex justify-between" key={index}>
                   <span>{invoice.customer_name}</span>{" "}
