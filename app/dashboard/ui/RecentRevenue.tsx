@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/app/utils/firebase";
@@ -80,13 +80,20 @@ const RevenueChart = () => {
 
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching revenue data:", error);
+        return { message: "Error fetching revenue data:" };
         setLoading(false);
       }
     };
 
     fetchRevenueData();
   }, []);
+
+  const chartData = useMemo(
+    () => ({
+      ...revenueData,
+    }),
+    [revenueData]
+  );
 
   return (
     <div className=" space-y-4">
@@ -105,7 +112,7 @@ const RevenueChart = () => {
       ) : (
         <Card style={{ height: "400px" }}>
           <Bar
-            data={revenueData}
+            data={chartData}
             options={{
               maintainAspectRatio: false,
               scales: {

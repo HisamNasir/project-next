@@ -17,7 +17,7 @@ const TotalInvoices = () => {
       setTotalInvoices(numberOfInvoices);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching total number of invoices:", error);
+      return { message: "Error fetching total number of invoices:" };
       setLoading(false);
     }
   };

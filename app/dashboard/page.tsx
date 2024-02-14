@@ -3,12 +3,12 @@ import React from "react";
 import Layout from "./layout";
 import { firestore } from "../utils/firebase";
 import { doc, setDoc, collection, addDoc } from "firebase/firestore";
-import PendingInvoice from "./lib/PendingInvoice";
-import CollectedInvoice from "./lib/CollectedInvoice";
-import TotalInvoices from "./lib/TotalInvoice";
-import TotalCustomers from "./lib/TotalCustomers";
-import LatestInvoices from "./lib/LatestInvoice";
-import RecentRevenue from "./lib/RecentRevenue";
+import PendingInvoice from "./ui/PendingInvoice";
+import CollectedInvoice from "./ui/CollectedInvoice";
+import TotalInvoices from "./ui/TotalInvoice";
+import TotalCustomers from "./ui/TotalCustomers";
+import LatestInvoices from "./ui/LatestInvoice";
+import RecentRevenue from "./ui/RecentRevenue";
 
 const Dashboard = () => {
   // const uploadDataToFirestore = async () => {
@@ -205,7 +205,6 @@ const Dashboard = () => {
           <CollectedInvoice />
           <TotalInvoices />
           <TotalCustomers />
-          {/* <button onClick={uploadDataToFirestore}>Upload Data</button> */}
         </div>
         <div className="m-2 p-4 border rounded-xl grid grid-cols-1 lg:grid-cols-2 gap-2 border-white border-opacity-20">
           <RecentRevenue />

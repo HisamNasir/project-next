@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, Skeleton } from "@nextui-org/react";
+
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/app/utils/firebase";
+import Link from "next/link";
 
 const LatestInvoices = () => {
   const [loading, setLoading] = useState(true);
@@ -20,7 +22,7 @@ const LatestInvoices = () => {
       setLatestInvoices(latestInvoices);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching latest invoices:", error);
+      return { message: "Error fetching latest invoices:" };
       setLoading(false);
     }
   };
@@ -42,7 +44,7 @@ const LatestInvoices = () => {
       });
       setLatestInvoices(updatedInvoices);
     } catch (error) {
-      console.error("Error fetching customer details:", error);
+      return { message: "Error fetching customer details:" };
     }
   };
   useEffect(() => {
@@ -74,8 +76,10 @@ const LatestInvoices = () => {
             <ul className="space-y-5 max-h-[380px] overflow-hidden overflow-y-scroll">
               {latestInvoices.map((invoice, index) => (
                 <li className=" flex justify-between" key={index}>
-                  <span>{invoice.customer_name}</span>{" "}
-                  <span>${invoice.amount}</span>
+                  <Link href={`/invoices/${invoice.customer_id}`}>
+                    <span>{invoice.customer_name}</span>{" "}
+                    <span>${invoice.amount}</span>
+                  </Link>
                 </li>
               ))}
             </ul>
