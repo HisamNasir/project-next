@@ -2,6 +2,7 @@
 import React from "react";
 import { Input, Button } from "@nextui-org/react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+
 const SearchBar = ({ setSearchTerm }) => {
   return (
     <div className="flex gap-1 m-2">

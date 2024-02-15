@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Card, Skeleton } from "@nextui-org/react";
-
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/app/utils/firebase";
 import Link from "next/link";
@@ -18,7 +17,6 @@ const LatestInvoices = () => {
       const sortedInvoices = invoicesData.sort((a, b) => {
         return new Date(b.date) - new Date(a.date);
       });
-
       const latestInvoices = sortedInvoices.slice(0, 8);
       setLatestInvoices(latestInvoices);
       setLoading(false);

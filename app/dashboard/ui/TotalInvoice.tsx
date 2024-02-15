@@ -22,11 +22,9 @@ const TotalInvoices = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchTotalInvoices();
   }, []);
-
   return (
     <div>
       {loading ? (
@@ -61,5 +59,4 @@ const TotalInvoices = () => {
     </div>
   );
 };
-
 export default TotalInvoices;

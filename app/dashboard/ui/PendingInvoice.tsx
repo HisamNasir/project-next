@@ -4,7 +4,6 @@ import { Card, CardBody, CardHeader, Skeleton } from "@nextui-org/react";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/app/utils/firebase";
 import { FaClock } from "react-icons/fa6";
-
 const PendingInvoice = () => {
   const [loading, setLoading] = useState(true);
   const [totalPendingAmount, setTotalPendingAmount] = useState(0);
@@ -28,7 +27,6 @@ const PendingInvoice = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchTotalPendingAmount();
   }, []);

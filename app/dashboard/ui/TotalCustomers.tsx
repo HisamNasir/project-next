@@ -22,11 +22,9 @@ const TotalCustomers = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchTotalCustomers();
   }, []);
-
   return (
     <div>
       {loading ? (
@@ -61,5 +59,4 @@ const TotalCustomers = () => {
     </div>
   );
 };
-
 export default TotalCustomers;

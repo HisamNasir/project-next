@@ -4,17 +4,14 @@ import { Card, CardBody, CardHeader, Skeleton } from "@nextui-org/react";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/app/utils/firebase";
 import { FaDollarSign } from "react-icons/fa6";
-
 const CollectedInvoice = () => {
   const [loading, setLoading] = useState(true);
   const [totalPaidAmount, setTotalPaidAmount] = useState(0);
-
   const fetchTotalPaidAmount = async () => {
     try {
       const revenueDataDoc = await getDoc(
         doc(firestore, "RevenueData", "Revenue")
       );
-
       const invoicesData = revenueDataDoc.data().invoices;
       let paidAmount = 0;
       for (const key in invoicesData) {
@@ -68,5 +65,4 @@ const CollectedInvoice = () => {
     </div>
   );
 };
-
 export default CollectedInvoice;

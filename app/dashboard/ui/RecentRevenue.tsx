@@ -12,18 +12,11 @@ const RevenueChart = () => {
   useEffect(() => {
     const fetchRevenueData = async () => {
       try {
-        // Dynamically import Chart.js library
         const Chart = await import("chart.js/auto");
-
-        // Get the "RevenueData" document
         const revenueDataDoc = await getDoc(
           doc(firestore, "RevenueData", "Revenue")
         );
-
-        // Access the "invoices" field
         const invoicesData = revenueDataDoc.data().invoices;
-
-        // Determine the latest invoice date
         let latestDate = new Date();
         for (const invoice of invoicesData) {
           const invoiceDate = new Date(invoice.date);
@@ -31,15 +24,11 @@ const RevenueChart = () => {
             latestDate = invoiceDate;
           }
         }
-
-        // Go back 12 months from the latest invoice date
         const twelveMonthsAgo = new Date(
           latestDate.getFullYear(),
           latestDate.getMonth() - 11,
           latestDate.getDate()
         );
-
-        // Initialize revenue data for each month
         const revenueByMonth = {};
         let currentDate = new Date(twelveMonthsAgo);
         while (currentDate <= latestDate) {
@@ -49,8 +38,6 @@ const RevenueChart = () => {
           revenueByMonth[formattedMonth] = 0;
           currentDate.setMonth(currentDate.getMonth() + 1);
         }
-
-        // Aggregate revenue for each month
         for (const invoice of invoicesData) {
           const invoiceDate = new Date(invoice.date);
           if (invoiceDate >= twelveMonthsAgo && invoiceDate <= latestDate) {
@@ -60,11 +47,8 @@ const RevenueChart = () => {
             revenueByMonth[formattedMonth] += invoice.amount;
           }
         }
-
-        // Prepare data for chart
         const labels = Object.keys(revenueByMonth);
         const data = Object.values(revenueByMonth);
-
         setRevenueData({
           labels,
           datasets: [
@@ -77,24 +61,20 @@ const RevenueChart = () => {
             },
           ],
         });
-
         setLoading(false);
       } catch (error) {
         return { message: "Error fetching revenue data:" };
         setLoading(false);
       }
     };
-
     fetchRevenueData();
   }, []);
-
   const chartData = useMemo(
     () => ({
       ...revenueData,
     }),
     [revenueData]
   );
-
   return (
     <div className=" space-y-4">
       <h2>Revenue Generated in Last 12 Months</h2>
@@ -135,5 +115,4 @@ const RevenueChart = () => {
     </div>
   );
 };
-
 export default RevenueChart;

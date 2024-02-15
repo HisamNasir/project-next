@@ -5,7 +5,6 @@ import TotalInvoices from "./ui/TotalInvoice";
 import TotalCustomers from "./ui/TotalCustomers";
 import LatestInvoices from "./ui/LatestInvoice";
 import RecentRevenue from "./ui/RecentRevenue";
-
 const Dashboard = () => {
   return (
     <div>
@@ -23,5 +22,4 @@ const Dashboard = () => {
     </div>
   );
 };
-
 export default Dashboard;

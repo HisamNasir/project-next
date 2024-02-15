@@ -4,34 +4,25 @@ import { Card, Button } from "@nextui-org/react";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/app/utils/firebase";
 import clsx from "clsx";
-const AccountList = ({ searchTerm }) => {
+import Image from "next/image";
+const CustomerList = ({ searchTerm }) => {
   const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [invoices, setInvoices] = useState([]);
   useEffect(() => {
-    const fetchAccounts = async () => {
+    const fetchAllAccounts = async () => {
       try {
         const revenueDataDoc = await getDoc(
           doc(firestore, "RevenueData", "Revenue")
         );
         const customersData = revenueDataDoc.data().customers;
-        const filteredAccounts = customersData.filter(
-          (account) =>
-            account.id.includes(searchTerm) ||
-            account.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-
-        setAccounts(filteredAccounts);
+        setAccounts(customersData);
       } catch (error) {
         console.error("Error fetching accounts:", error);
       }
     };
-
-    if (searchTerm) {
-      fetchAccounts();
-    }
-  }, [searchTerm]);
-
+    fetchAllAccounts();
+  }, []);
   const handleAccountClick = async (customerId) => {
     try {
       const revenueDataDoc = await getDoc(
@@ -44,25 +35,53 @@ const AccountList = ({ searchTerm }) => {
 
       setInvoices(filteredInvoices);
       setSelectedAccount(customerId);
-    } catch (error) {
-      console.error("Error fetching invoices:", error);
-    }
+    } catch (error) {}
   };
-
+  const filteredAccounts = accounts.filter(
+    (account) =>
+      account.id.includes(searchTerm) ||
+      account.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      account.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <Card>
-      {accounts.map((account, index) => (
+      {filteredAccounts.map((account, index) => (
         <>
           <Button
             color={selectedAccount === account.id ? "primary" : "default"}
-            className="m-2"
+            className="m-2 p-4 h-auto"
             key={index}
             onClick={() => handleAccountClick(account.id)}
           >
-            <p>
-              <span className=" text-sm opacity-50">Name:</span>{" "}
-              <span>{account.name}</span>
-            </p>
+            <div className="w-full">
+              <div className="flex items-center">
+                <div>
+                  {account.image_url && (
+                    <Image
+                      width={80}
+                      height={80}
+                      src={account.image_url}
+                      alt={account.name}
+                      className=" rounded-lg mr-4"
+                    />
+                  )}
+                </div>
+                <div className=" text-left flex flex-col gap-3">
+                  <p>
+                    <span className=" text-sm opacity-50">Name:</span>{" "}
+                    <span>{account.name}</span>
+                  </p>
+                  <p>
+                    <span className=" text-sm opacity-50">ID:</span>{" "}
+                    <span>{account.id}</span>
+                  </p>
+                  <p>
+                    <span className=" text-sm opacity-50">Email:</span>{" "}
+                    <span>{account.email}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </Button>
           <Card className="m-2">
             {selectedAccount === account.id && (
@@ -86,7 +105,7 @@ const AccountList = ({ searchTerm }) => {
                       <span className=" text-sm text-gray-500">Status:</span>{" "}
                       <span
                         className={clsx({
-                          "text-blue-500": invoice.status === "paid",
+                          "text-blue-600": invoice.status === "paid",
                           "text-red-800": invoice.status === "pending",
                         })}
                       >
@@ -104,4 +123,4 @@ const AccountList = ({ searchTerm }) => {
   );
 };
 
-export default AccountList;
+export default CustomerList;
