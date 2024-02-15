@@ -17,7 +17,7 @@ const CustomerList: React.FC<{ searchTerm: string }> = ({ searchTerm }) => {
         const revenueDataDoc = await getDoc(
           doc(firestore, "RevenueData", "Revenue")
         );
-        const customersData = revenueDataDoc.data().customers;
+        const customersData = revenueDataDoc.data()?.customers;
         setAccounts(customersData);
       } catch (error) {
         console.error("Error fetching accounts:", error);
@@ -32,7 +32,7 @@ const CustomerList: React.FC<{ searchTerm: string }> = ({ searchTerm }) => {
       const revenueDataDoc = await getDoc(
         doc(firestore, "RevenueData", "Revenue")
       );
-      const invoicesData = revenueDataDoc.data().invoices;
+      const invoicesData = revenueDataDoc.data()?.invoices;
       const filteredInvoices = invoicesData.filter(
         (invoice: any) => invoice.customer_id === customerId
       );
