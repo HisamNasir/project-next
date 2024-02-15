@@ -7,7 +7,7 @@ const SearchBar = ({ setSearchTerm }) => {
   return (
     <div className="flex gap-1 m-2">
       <Input
-        size="small"
+        size="sm"
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search..."
       />
