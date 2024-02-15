@@ -7,7 +7,7 @@ import { FaCompass } from "react-icons/fa6";
 import SideNav from "./ui/sidenav";
 const lato = Lato({
   subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"],
+  weight: ["100", "300", "400", "900"],
 });
 
 export const metadata: Metadata = {
