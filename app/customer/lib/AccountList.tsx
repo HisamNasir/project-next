@@ -5,10 +5,12 @@ import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/app/utils/firebase";
 import clsx from "clsx";
 import Image from "next/image";
-const CustomerList = ({ searchTerm }) => {
-  const [accounts, setAccounts] = useState([]);
-  const [selectedAccount, setSelectedAccount] = useState(null);
-  const [invoices, setInvoices] = useState([]);
+
+const CustomerList: React.FC<{ searchTerm: string }> = ({ searchTerm }) => {
+  const [accounts, setAccounts] = useState<any[]>([]);
+  const [selectedAccount, setSelectedAccount] = useState<string | null>(null);
+  const [invoices, setInvoices] = useState<any[]>([]);
+
   useEffect(() => {
     const fetchAllAccounts = async () => {
       try {
@@ -21,36 +23,39 @@ const CustomerList = ({ searchTerm }) => {
         console.error("Error fetching accounts:", error);
       }
     };
+
     fetchAllAccounts();
   }, []);
-  const handleAccountClick = async (customerId) => {
+
+  const handleAccountClick = async (customerId: string) => {
     try {
       const revenueDataDoc = await getDoc(
         doc(firestore, "RevenueData", "Revenue")
       );
       const invoicesData = revenueDataDoc.data().invoices;
       const filteredInvoices = invoicesData.filter(
-        (invoice) => invoice.customer_id === customerId
+        (invoice: any) => invoice.customer_id === customerId
       );
 
       setInvoices(filteredInvoices);
       setSelectedAccount(customerId);
     } catch (error) {}
   };
+
   const filteredAccounts = accounts.filter(
     (account) =>
       account.id.includes(searchTerm) ||
       account.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       account.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
   return (
     <Card>
       {filteredAccounts.map((account, index) => (
-        <>
+        <React.Fragment key={index}>
           <Button
             color={selectedAccount === account.id ? "primary" : "default"}
             className="m-2 p-4 h-auto"
-            key={index}
             onClick={() => handleAccountClick(account.id)}
           >
             <div className="w-full">
@@ -62,21 +67,21 @@ const CustomerList = ({ searchTerm }) => {
                       height={80}
                       src={account.image_url}
                       alt={account.name}
-                      className=" rounded-lg mr-4"
+                      className="rounded-lg mr-4"
                     />
                   )}
                 </div>
-                <div className=" text-left flex flex-col gap-3">
+                <div className="text-left flex flex-col gap-3">
                   <p>
-                    <span className=" text-sm opacity-50">Name:</span>{" "}
+                    <span className="text-sm opacity-50">Name:</span>{" "}
                     <span>{account.name}</span>
                   </p>
                   <p>
-                    <span className=" text-sm opacity-50">ID:</span>{" "}
+                    <span className="text-sm opacity-50">ID:</span>{" "}
                     <span>{account.id}</span>
                   </p>
                   <p>
-                    <span className=" text-sm opacity-50">Email:</span>{" "}
+                    <span className="text-sm opacity-50">Email:</span>{" "}
                     <span>{account.email}</span>
                   </p>
                 </div>
@@ -87,22 +92,22 @@ const CustomerList = ({ searchTerm }) => {
             {selectedAccount === account.id && (
               <div className="p-2 space-y-2">
                 <h3>Invoices:</h3>
-                <p className=" text-xs">
-                  <span className="opacity-50">ID:</span>
-                  <span> {account.id}</span>
+                <p className="text-xs">
+                  <span className="opacity-50">ID:</span>{" "}
+                  <span>{account.id}</span>
                 </p>
                 {invoices.map((invoice, idx) => (
                   <Card className="p-2 px-4" key={idx}>
                     <p>
-                      <span className=" text-sm text-gray-500">Amount:</span> $
+                      <span className="text-sm text-gray-500">Amount:</span> $
                       {invoice.amount}
                     </p>
                     <p>
-                      <span className=" text-sm text-gray-500">Date:</span>{" "}
+                      <span className="text-sm text-gray-500">Date:</span>{" "}
                       {invoice.date}
                     </p>
                     <p className="">
-                      <span className=" text-sm text-gray-500">Status:</span>{" "}
+                      <span className="text-sm text-gray-500">Status:</span>{" "}
                       <span
                         className={clsx({
                           "text-blue-600": invoice.status === "paid",
@@ -117,7 +122,7 @@ const CustomerList = ({ searchTerm }) => {
               </div>
             )}
           </Card>
-        </>
+        </React.Fragment>
       ))}
     </Card>
   );
