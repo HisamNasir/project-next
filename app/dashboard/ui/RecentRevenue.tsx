@@ -5,9 +5,14 @@ import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/app/utils/firebase";
 import { Card, Skeleton } from "@nextui-org/react";
 
-const RevenueChart = () => {
-  const [loading, setLoading] = useState(true);
-  const [revenueData, setRevenueData] = useState({});
+interface Invoice {
+  date: string;
+  amount: number;
+}
+
+const RevenueChart: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [revenueData, setRevenueData] = useState<any>({});
 
   useEffect(() => {
     const fetchRevenueData = async () => {
@@ -16,7 +21,7 @@ const RevenueChart = () => {
         const revenueDataDoc = await getDoc(
           doc(firestore, "RevenueData", "Revenue")
         );
-        const invoicesData = revenueDataDoc.data().invoices;
+        const invoicesData = revenueDataDoc.data()?.invoices as Invoice[];
         let latestDate = new Date();
         for (const invoice of invoicesData) {
           const invoiceDate = new Date(invoice.date);
@@ -29,7 +34,7 @@ const RevenueChart = () => {
           latestDate.getMonth() - 11,
           latestDate.getDate()
         );
-        const revenueByMonth = {};
+        const revenueByMonth: { [key: string]: number } = {};
         let currentDate = new Date(twelveMonthsAgo);
         while (currentDate <= latestDate) {
           const formattedMonth = `${currentDate.getFullYear()}-${
@@ -63,18 +68,15 @@ const RevenueChart = () => {
         });
         setLoading(false);
       } catch (error) {
-        return { message: "Error fetching revenue data:" };
+        console.error("Error fetching revenue data:", error);
         setLoading(false);
       }
     };
     fetchRevenueData();
   }, []);
-  const chartData = useMemo(
-    () => ({
-      ...revenueData,
-    }),
-    [revenueData]
-  );
+
+  const chartData = useMemo(() => ({ ...revenueData }), [revenueData]);
+
   return (
     <div className=" space-y-4">
       <h2>Revenue Generated in Last 12 Months</h2>
@@ -115,4 +117,5 @@ const RevenueChart = () => {
     </div>
   );
 };
+
 export default RevenueChart;

@@ -13,7 +13,7 @@ const TotalCustomers = () => {
       const revenueDataDoc = await getDoc(
         doc(firestore, "RevenueData", "Revenue")
       );
-      const customersData = revenueDataDoc.data().customers;
+      const customersData = revenueDataDoc.data()?.customers;
       const numberOfCustomers = customersData.length;
       setTotalCustomers(numberOfCustomers);
       setLoading(false);

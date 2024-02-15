@@ -10,19 +10,17 @@ import {
   Button,
 } from "@nextui-org/react";
 import { FaGoogle } from "react-icons/fa6";
-const LoginButton = () => {
-  const [user, setUser] = useState(null);
+
+const LoginButton: React.FC = () => {
+  const [user, setUser] = useState<any | null>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
+      setUser(user);
     });
     return () => unsubscribe();
   }, []);
+
   const handleSignInWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
@@ -31,6 +29,7 @@ const LoginButton = () => {
       console.error("Error signing in:", error);
     }
   };
+
   const handleSignOut = async () => {
     try {
       await auth.signOut();
@@ -38,6 +37,7 @@ const LoginButton = () => {
       console.error("Error signing out:", error);
     }
   };
+
   return (
     <div>
       {user ? (
@@ -45,11 +45,11 @@ const LoginButton = () => {
           <Dropdown>
             <DropdownTrigger>
               <Button
-                className=" w-full p-4 flex justify-between h-14 "
+                className="w-full p-4 flex justify-between h-14"
                 variant="bordered"
               >
                 <img
-                  className=" w-10 h-10 rounded-lg"
+                  className="w-10 h-10 rounded-lg"
                   src={user.photoURL}
                   alt="Profile"
                 />
@@ -70,7 +70,7 @@ const LoginButton = () => {
         </div>
       ) : (
         <Button
-          className=" w-full p-4  h-14 "
+          className="w-full p-4 h-14"
           variant="bordered"
           onClick={handleSignInWithGoogle}
         >

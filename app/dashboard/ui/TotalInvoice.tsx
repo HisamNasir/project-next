@@ -13,7 +13,7 @@ const TotalInvoices = () => {
       const revenueDataDoc = await getDoc(
         doc(firestore, "RevenueData", "Revenue")
       );
-      const invoicesData = revenueDataDoc.data().invoices;
+      const invoicesData = revenueDataDoc.data()?.invoices;
       const numberOfInvoices = Object.keys(invoicesData).length;
       setTotalInvoices(numberOfInvoices);
       setLoading(false);

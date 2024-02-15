@@ -12,7 +12,7 @@ const CollectedInvoice = () => {
       const revenueDataDoc = await getDoc(
         doc(firestore, "RevenueData", "Revenue")
       );
-      const invoicesData = revenueDataDoc.data().invoices;
+      const invoicesData = revenueDataDoc.data()?.invoices;
       let paidAmount = 0;
       for (const key in invoicesData) {
         const invoice = invoicesData[key];

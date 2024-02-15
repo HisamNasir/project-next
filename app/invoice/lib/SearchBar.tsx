@@ -2,11 +2,16 @@
 import React from "react";
 import { Input, Button } from "@nextui-org/react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-const SearchBar = ({ setSearchTerm }) => {
+
+interface Props {
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SearchBar: React.FC<Props> = ({ setSearchTerm }) => {
   return (
     <div className="flex gap-1 m-2">
       <Input
-        size="small"
+        size="sm"
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search..."
       />

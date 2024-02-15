@@ -12,7 +12,7 @@ const PendingInvoice = () => {
       const revenueDataDoc = await getDoc(
         doc(firestore, "RevenueData", "Revenue")
       );
-      const invoicesData = revenueDataDoc.data().invoices;
+      const invoicesData = revenueDataDoc.data()?.invoices;
       let pendingAmount = 0;
 
       for (const key in invoicesData) {
