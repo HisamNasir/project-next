@@ -13,7 +13,7 @@
     "@next/font": "^14.1.0",
     "@nextui-org/react": "^2.2.9",
     "@vercel/postgres": "^0.7.2",
-    "chart.js": "^3.9.1",
+    "chart.js": "^4.1.1",
     "firebase": "^10.8.0",
     "framer-motion": "^11.0.3",
     "next": "14.1.0",
