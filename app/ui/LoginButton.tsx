@@ -14,20 +14,15 @@ const LoginButton = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Check if the user is already signed in
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        // User is signed in.
         setUser(user);
       } else {
-        // No user is signed in.
         setUser(null);
       }
     });
-
     return () => unsubscribe();
   }, []);
-
   const handleSignInWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
@@ -36,7 +31,6 @@ const LoginButton = () => {
       console.error("Error signing in:", error);
     }
   };
-
   const handleSignOut = async () => {
     try {
       await auth.signOut();
@@ -44,7 +38,6 @@ const LoginButton = () => {
       console.error("Error signing out:", error);
     }
   };
-
   return (
     <div>
       {user ? (
