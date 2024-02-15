@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { FaHome } from "react-icons/fa";
 import { FaFile, FaPeopleGroup } from "react-icons/fa6";
+import LoginButton from "./LoginButton";
 
 const SideNav = () => {
   return (
@@ -32,12 +33,7 @@ const SideNav = () => {
           </Link>
         </div>
         <div className=" flex md:flex-col gap-4">
-          <Link
-            className="flex items-center gap-4 p-2 px-4  border rounded-xl text-center"
-            href={"/loginpage/"}
-          >
-            Name
-          </Link>
+          <LoginButton />
         </div>
       </Card>
     </div>
